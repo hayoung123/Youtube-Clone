@@ -22,7 +22,14 @@ export const postJoin = (req, res) => {
 };
 
 //login
-export const login = (req, res) => res.render("login", { pageTitle: "Login" });
+export const getLogin = (req, res) =>
+  res.render("login", { pageTitle: "Login" });
+export const postLogin = (req, res) => {
+  //TO DO : DB와 check
+  res.redirect(routes.home);
+};
+
+//logout
 export const logout = (req, res) =>
   res.render("logout", { pageTitle: "Logout" });
 
