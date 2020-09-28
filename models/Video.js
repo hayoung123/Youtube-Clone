@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const videoSchema = new mongoose.Schema({
+const VideoSchema = new mongoose.Schema({
   fileUrl: {
     type: String,
     required: "File URL is required", //error message
@@ -9,9 +9,7 @@ const videoSchema = new mongoose.Schema({
     type: String,
     required: "Title is required",
   },
-  Description: {
-    type: String,
-  },
+  Description: String,
   views: {
     type: Number,
     default: 0,
@@ -20,7 +18,15 @@ const videoSchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
+  //comments ID들을 배열로 저장하는방식
+  comments: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      //Comment라는 참조할 파일이 있어야한다.
+      ref: "Comment",
+    },
+  ],
 });
 
-const model = mongoose.model("Video", videoSchema);
+const model = mongoose.model("Video", VideoSchema);
 export default model;
