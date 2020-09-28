@@ -1,6 +1,9 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+//config함수로 .env파일을 자동으로 drive, 안에 있는 변수들을 사용할 수 있다.
+dotenv.config();
 
-mongoose.connect("mongodb://localhost:27017/youtube-clone", {
+mongoose.connect(process.env.MONGO_URL, {
   useNewUrlParser: true,
   useFindAndModify: false,
 });
