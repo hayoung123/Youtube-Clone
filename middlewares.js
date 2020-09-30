@@ -1,4 +1,8 @@
 import routes from "./routes";
+//video파일을 url로 해주기 위해 multer 사용.
+import multer from "multer";
+
+const multerVideo = multer({ dest: "uploads/videos/" });
 
 export const localsMiddleware = (req, res, next) => {
   res.locals.siteName = "WeTube";
@@ -9,3 +13,6 @@ export const localsMiddleware = (req, res, next) => {
   };
   next();
 };
+
+//single("videoFile") pug에서 name = videoFile 인 하나의 비디오
+export const uploadVideo = multerVideo.single("videoFile");
