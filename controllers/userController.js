@@ -35,7 +35,6 @@ export const logout = (req, res) => {
 };
 
 //user router
-export const users = (req, res) => res.render("users", { pageTitle: "Users" });
 export const userDetail = (req, res) =>
   res.render("userDetail", { pageTitle: "User Detail" });
 export const editProfile = (req, res) =>
