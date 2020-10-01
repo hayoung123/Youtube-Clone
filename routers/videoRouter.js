@@ -1,8 +1,9 @@
 import express from "express";
 import {
   deleteVideo,
-  editVideo,
+  getEditVideo,
   getUpload,
+  postEditVideo,
   postUpload,
   videoDetail,
 } from "../controllers/videoController";
@@ -16,7 +17,8 @@ videoRouter.get(routes.upload, getUpload);
 
 //middleware 에서 만든 uploadvideo를 2번째인자로
 videoRouter.post(routes.upload, uploadVideo, postUpload);
-videoRouter.get(routes.editVideo, editVideo);
+videoRouter.get(routes.editVideo(), getEditVideo);
+videoRouter.post(routes.editVideo(), postEditVideo);
 videoRouter.get(routes.deleteVideo, deleteVideo);
 videoRouter.get(routes.videoDetail(), videoDetail);
 
