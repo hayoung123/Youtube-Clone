@@ -46,8 +46,19 @@ export const postUpload = async (req, res) => {
   res.redirect(routes.videoDetail(newVideo.id));
 };
 
-export const videoDetail = (req, res) =>
-  res.render("videoDetail", { pageTitle: "Video Detail" });
+export const videoDetail = async (req, res) => {
+  // req.params 는 routes에서 쓴 변수이름(id) 이다.
+  const {
+    params: { id },
+  } = req;
+  try {
+    const video = await Video.findById(id);
+    res.render("videoDetail", { pageTitle: "Video Detail", video });
+  } catch (error) {
+    console.log(error);
+    res.redirect(routes.home);
+  }
+};
 export const editVideo = (req, res) =>
   res.render("editVideo", { pageTitle: "Ediit Video" });
 export const deleteVideo = (req, res) =>
