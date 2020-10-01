@@ -1,5 +1,6 @@
 import routes from "../routes";
 import Video from "../models/Video";
+import videoRouter from "../routers/videoRouter";
 
 //global router
 
@@ -40,9 +41,6 @@ export const postUpload = async (req, res) => {
     title,
     description,
   });
-
-  // TO DO : upload and save video
-  console.log(newVideo);
   res.redirect(routes.videoDetail(newVideo.id));
 };
 
@@ -54,7 +52,7 @@ export const videoDetail = async (req, res) => {
   try {
     const video = await Video.findById(id);
     console.log(video);
-    res.render("videoDetail", { pageTitle: "Video Detail", video });
+    res.render("videoDetail", { pageTitle: video.title, video });
   } catch (error) {
     res.redirect(routes.home);
   }
@@ -86,5 +84,12 @@ export const postEditVideo = async (req, res) => {
 };
 
 //delete video
-export const deleteVideo = (req, res) =>
-  res.render("deleteVideo", { pageTitle: "Delete Video" });
+export const deleteVideo = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+  try {
+    await Video.findOneAndDelete({ _id: id });
+  } catch (errr) {}
+  res.redirect(routes.home);
+};
