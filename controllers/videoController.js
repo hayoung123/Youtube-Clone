@@ -11,7 +11,7 @@ export const home = async (req, res) => {
   //성공이 아닌 끝나면 넘어간다. error 가 발생해도 render가 됨
   // --> try catch 구문사용
   try {
-    const videos = await Video.find({});
+    const videos = await Video.find({}).sort({ _id: -1 });
     res.render("home", { pageTitle: "Home", videos });
   } catch (error) {
     console.log(error);
@@ -19,10 +19,20 @@ export const home = async (req, res) => {
   }
 };
 
-export const search = (req, res) => {
+//search
+export const search = async (req, res) => {
   const {
     query: { term: searchingBy },
   } = req;
+  let videos = [];
+  try {
+    //$options: i (insensitive) -> 대소문자 비교 X
+    videos = await Video.find({
+      title: { $regex: searchingBy, $options: "i" },
+    });
+  } catch (error) {
+    console.log(error);
+  }
   res.render("search", { pageTitle: "Search", searchingBy, videos });
 };
 
