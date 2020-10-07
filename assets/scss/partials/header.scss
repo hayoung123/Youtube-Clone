@@ -1,0 +1,56 @@
+header {
+  background-color: $white;
+  margin-bottom: 50px;
+}
+
+.header__wrapper {
+  width: 100%;
+  margin: 0 auto;
+
+  padding: 10px 0px;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: 0.5fr 1fr 1fr;
+  align-items: center;
+  .header__column {
+    a {
+      color: $black;
+    }
+    i {
+      color: $red;
+      font-size: 40px;
+    }
+    &:nth-child(2) {
+      width: 100%;
+      justify-self: center;
+    }
+    &:last-child {
+      justify-self: end;
+    }
+    ul {
+      display: flex;
+      color: $black;
+      font-weight: 600;
+      text-transform: uppercase;
+      li:not(:last-child) {
+        margin-right: 15px;
+      }
+    }
+    form {
+      width: 100%;
+      input {
+        padding: 7px 10px;
+        width: 100%;
+        border: 1px solid $black;
+        border-radius: 5px;
+        font-size: 14px;
+        color: $black;
+        font-weight: 600;
+        &::placeholder {
+          font-weight: 300;
+          color: rgba(0, 0, 0, 0.7);
+        }
+      }
+    }
+  }
+}
