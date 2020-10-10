@@ -1,6 +1,5 @@
 import routes from "../routes";
 import Video from "../models/Video";
-import videoRouter from "../routers/videoRouter";
 
 //global router
 

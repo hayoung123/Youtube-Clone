@@ -1,33 +1,43 @@
 //global router
-
+import passport from "passport";
 import routes from "../routes";
+import User from "../models/User";
 
 //join
 export const getJoin = (req, res) => {
   res.render("join", { pageTitle: "Join" });
 };
-export const postJoin = (req, res) => {
+export const postJoin = async (req, res, next) => {
   const {
     body: { name, email, password, password2 },
   } = req;
   if (password !== password2) {
-    //bad request
     res.status(400);
+    console.log("wrong pw");
     res.render("join", { pageTitle: "Join" });
   } else {
-    // TO DO : Register user
-    // TO DO : Log user
-    res.redirect(routes.home);
+    try {
+      const user = await User({
+        name,
+        email,
+      });
+      await User.register(user, password);
+      next();
+    } catch (error) {
+      console.log(error);
+      res.redirect(routes.home);
+    }
   }
 };
 
 //login
 export const getLogin = (req, res) =>
   res.render("login", { pageTitle: "Login" });
-export const postLogin = (req, res) => {
-  //TO DO : DB와 check
-  res.redirect(routes.home);
-};
+
+export const postLogin = passport.authenticate("local", {
+  successRedirect: routes.home,
+  failureRedirect: routes.login,
+});
 
 //logout
 export const logout = (req, res) => {
