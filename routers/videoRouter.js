@@ -7,7 +7,7 @@ import {
   postUpload,
   videoDetail,
 } from "../controllers/videoController";
-import { uploadVideo } from "../middlewares";
+import { onlyPrivate, uploadVideo } from "../middlewares";
 import routes from "../routes";
 
 export const videoRouter = express.Router();
@@ -16,10 +16,10 @@ export const videoRouter = express.Router();
 videoRouter.get(routes.upload, getUpload);
 
 //middleware 에서 만든 uploadvideo를 2번째인자로
-videoRouter.post(routes.upload, uploadVideo, postUpload);
-videoRouter.get(routes.editVideo(), getEditVideo);
-videoRouter.post(routes.editVideo(), postEditVideo);
-videoRouter.get(routes.deleteVideo(), deleteVideo);
+videoRouter.post(routes.upload, onlyPrivate, uploadVideo, postUpload);
+videoRouter.get(routes.editVideo(), onlyPrivate, getEditVideo);
+videoRouter.post(routes.editVideo(), onlyPrivate, postEditVideo);
+videoRouter.get(routes.deleteVideo(), onlyPrivate, deleteVideo);
 videoRouter.get(routes.videoDetail(), videoDetail);
 
 export default videoRouter;
